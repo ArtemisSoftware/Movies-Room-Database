@@ -39,10 +39,10 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-/*
+
     def design_version = "27.1.1"
     implementation "com.android.support:design:$design_version"
-
+/*
     implementation 'com.google.android.material:material:1.0.0'
     */
 }
