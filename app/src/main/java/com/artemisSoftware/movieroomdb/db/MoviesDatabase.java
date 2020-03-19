@@ -10,12 +10,17 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.artemisSoftware.movieroomdb.util.DataBase;
 
-//--@Database(entities = {Movie.class, Director.class}, version = 1)
+//--@Database(entities = {Director.class, Movie.class}, version = 1)
 public abstract class MoviesDatabase extends RoomDatabase {
+
+
+
+    private static final String TAG = "MoviesDatabase";
+
 
     private static MoviesDatabase INSTANCE;
 
-    private static final String TAG = "MoviesDatabase";
+
 
     public static MoviesDatabase getDatabase(final Context context) {
 
@@ -34,7 +39,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
                                     super.onCreate(db);
 
                                     Log.d(TAG, "populating with data...");
-                                    //--new PopulateDbAsync(INSTANCE).execute();
+                                    new PopulateDbAsync(INSTANCE).execute();
                                 }
                             })
                             .build();
@@ -54,7 +59,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
 
     public void clearDb() {
         if (INSTANCE != null) {
-            //--new PopulateDbAsync(INSTANCE).execute();
+            new PopulateDbAsync(INSTANCE).execute();
         }
     }
 

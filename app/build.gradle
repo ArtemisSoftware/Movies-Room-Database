@@ -37,13 +37,22 @@ dependencies {
 
     // Room
     def room_version = "2.2.4"
-
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
+
+    // ViewModel and LiveData
+    def lifecycle_version = '2.1.0-alpha03'
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+
+    // Design
     def design_version = "27.1.1"
     implementation "com.android.support:design:$design_version"
 
-    implementation 'com.google.android.material:material:1.0.0'
+
+    // Material
+    def material_version = "1.0.0"
+    implementation "com.google.android.material:material:$material_version"
 
 }

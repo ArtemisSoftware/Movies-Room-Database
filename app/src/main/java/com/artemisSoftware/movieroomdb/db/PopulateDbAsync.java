@@ -9,7 +9,7 @@ public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
     private final DirectorDao directorDao;
     */
 
-    public PopulateDbAsync(/*MoviesDatabase instance*/) {
+    public PopulateDbAsync(MoviesDatabase instance) {
         /*
         movieDao = instance.movieDao();
         directorDao = instance.directorDao();
