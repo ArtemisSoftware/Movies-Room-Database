@@ -14,6 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/holo_orange_light"
-         /> <!-- tools:listitem="@layout/item_list_director" -->
+        tools:listitem="@layout/item_list_director" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
