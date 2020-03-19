@@ -46,6 +46,11 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
 
+    // Stetho
+    def stetho_version = '1.5.1'
+    implementation "com.facebook.stetho:stetho:$stetho_version"
+
+
     // Design
     def design_version = "27.1.1"
     implementation "com.android.support:design:$design_version"
