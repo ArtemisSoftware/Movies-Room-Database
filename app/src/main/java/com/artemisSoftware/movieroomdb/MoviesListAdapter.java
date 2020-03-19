@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.artemisSoftware.movieroomdb.db.Movie;
@@ -30,11 +32,9 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
 
     @Override
     public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        /*
+
         final View itemView = layoutInflater.inflate(R.layout.item_list_movie, parent, false);
         return new MoviesViewHolder(itemView);
-        */
-        return null;
     }
 
     @Override
@@ -44,11 +44,12 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
             return;
         }
 
-        /*
+
         final Movie movie = movieList.get(position);
         if (movie != null) {
             holder.titleText.setText(movie.title);
 
+            /*
             final Director director = MoviesDatabase.getDatabase(context).directorDao().findDirectorById(movie.directorId);
             final String directorFullName;
             if (director != null) {
@@ -57,16 +58,16 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
             } else {
                 directorFullName = "";
             }
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     DialogFragment dialogFragment = MovieSaveDialogFragment.newInstance(movie.title, directorFullName);
-                    dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), TAG_DIALOG_MOVIE_SAVE);
+                    dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), MovieSaveDialogFragment.TAG_DIALOG_MOVIE_SAVE);
                 }
             });
+            */
         }
-
-         */
     }
 
     @Override
@@ -88,10 +89,10 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
         public MoviesViewHolder(View itemView) {
             super(itemView);
 
-            /*
+
             titleText = itemView.findViewById(R.id.tvMovieTitle);
             directorText = itemView.findViewById(R.id.tvMovieDirectorFullName);
-            */
+
         }
     }
 }
