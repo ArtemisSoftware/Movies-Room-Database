@@ -1,4 +1,4 @@
-package com.artemisSoftware.movieroomdb;
+package com.artemisSoftware.movieroomdb.movie;
 
 import android.app.Application;
 

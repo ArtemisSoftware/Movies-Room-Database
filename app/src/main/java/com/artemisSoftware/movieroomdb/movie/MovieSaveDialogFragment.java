@@ -1,21 +1,19 @@
-package com.artemisSoftware.movieroomdb;
+package com.artemisSoftware.movieroomdb.movie;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
+
+import com.artemisSoftware.movieroomdb.R;
 
 
 public class MovieSaveDialogFragment extends DialogFragment {
