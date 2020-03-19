@@ -6,14 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.artemisSoftware.movieroomdb.R;
+import com.artemisSoftware.movieroomdb.db.Director;
+
+import java.util.List;
 
 public class DirectorsListAdapter extends RecyclerView.Adapter<DirectorsListAdapter.DirectorsViewHolder> {
 
     private LayoutInflater layoutInflater;
-    //--private List<Director> directorList;
+    private List<Director> directorList;
     private Context context;
 
     public DirectorsListAdapter(Context context) {
@@ -21,8 +26,8 @@ public class DirectorsListAdapter extends RecyclerView.Adapter<DirectorsListAdap
         this.context = context;
     }
 
-    public void setDirectorList(/*List<Director> directorList*/) {
-        //this.directorList = directorList;
+    public void setDirectorList(List<Director> directorList) {
+        this.directorList = directorList;
         notifyDataSetChanged();
     }
 
@@ -36,7 +41,7 @@ public class DirectorsListAdapter extends RecyclerView.Adapter<DirectorsListAdap
     @Override
     public void onBindViewHolder(DirectorsListAdapter.DirectorsViewHolder holder, int position) {
 
-        /*
+
         if (directorList == null) {
             return;
         }
@@ -47,24 +52,27 @@ public class DirectorsListAdapter extends RecyclerView.Adapter<DirectorsListAdap
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     DialogFragment dialogFragment = DirectorSaveDialogFragment.newInstance(director.fullName);
-                    dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), TAG_DIALOG_DIRECTOR_SAVE);
+                    dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), DirectorSaveDialogFragment.TAG_DIALOG_DIRECTOR_SAVE);
                 }
             });
         }
 
-         */
+
     }
 
     @Override
     public int getItemCount() {
-        //if (directorList == null) {
+
+        if (directorList == null) {
             return 0;
-        /*} else {
+        }
+        else {
             return directorList.size();
         }
-        */
     }
+
 
     static class DirectorsViewHolder extends RecyclerView.ViewHolder {
 

@@ -49,8 +49,8 @@ public class DirectorsListFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview_directors);
         recyclerView.setAdapter(directorsListAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
-        //--recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        //--recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         return view;
     }
 
