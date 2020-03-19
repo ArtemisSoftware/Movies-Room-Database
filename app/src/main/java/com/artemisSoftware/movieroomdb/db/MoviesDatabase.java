@@ -8,11 +8,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.artemisSoftware.movieroomdb.util.DataBase;
+
 //--@Database(entities = {Movie.class, Director.class}, version = 1)
 public abstract class MoviesDatabase extends RoomDatabase {
 
     private static MoviesDatabase INSTANCE;
-    private static final String DB_NAME = "movies.db";
 
     private static final String TAG = "MoviesDatabase";
 
@@ -25,7 +26,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
 
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            MoviesDatabase.class, DB_NAME)
+                            MoviesDatabase.class, DataBase.NAME)
                             .allowMainThreadQueries() // SHOULD NOT BE USED IN PRODUCTION !!!
                             .addCallback(new RoomDatabase.Callback() {
                                 @Override
