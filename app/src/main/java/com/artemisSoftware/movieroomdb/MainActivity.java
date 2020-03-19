@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.artemisSoftware.movieroomdb.db.MoviesDatabase;
 import com.artemisSoftware.movieroomdb.director.DirectorSaveDialogFragment;
 import com.artemisSoftware.movieroomdb.director.DirectorsListFragment;
 import com.artemisSoftware.movieroomdb.movie.MovieSaveDialogFragment;
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void reCreateDatabase() {
-        //--MoviesDatabase.getDatabase(this).clearDb();
+        MoviesDatabase.getDatabase(this).clearDb();
     }
 
 }

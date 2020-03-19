@@ -19,6 +19,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.artemisSoftware.movieroomdb.R;
+import com.artemisSoftware.movieroomdb.db.Director;
+import com.artemisSoftware.movieroomdb.db.DirectorDao;
+import com.artemisSoftware.movieroomdb.db.MoviesDatabase;
 
 
 public class DirectorSaveDialogFragment extends DialogFragment {
@@ -98,21 +101,22 @@ public class DirectorSaveDialogFragment extends DialogFragment {
             return;
         }
 
-        /*
         DirectorDao directorDao = MoviesDatabase.getDatabase(context).directorDao();
 
         if (directorFullNameExtra != null) {
             // clicked on item row -> update
             Director directorToUpdate = directorDao.findDirectorByName(directorFullNameExtra);
+
             if (directorToUpdate != null) {
                 if (!directorToUpdate.fullName.equals(fullName)) {
                     directorToUpdate.fullName = fullName;
                     directorDao.update(directorToUpdate);
                 }
             }
-        } else {
+        }
+        else {
             directorDao.insert(new Director(fullName));
         }
-        */
+
     }
 }

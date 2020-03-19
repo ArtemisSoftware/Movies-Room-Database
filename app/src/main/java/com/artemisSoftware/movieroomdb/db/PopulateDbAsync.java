@@ -29,7 +29,7 @@ public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
         directorDao.insert(director);
 
         director = new Director("Ridley Scott");
-        long result = directorDao.insert(director);
+        directorDao.insert(director);
 
         Director directorOne = new Director("Adam McKay");
         Director directorTwo = new Director("Denis Villeneuve");
