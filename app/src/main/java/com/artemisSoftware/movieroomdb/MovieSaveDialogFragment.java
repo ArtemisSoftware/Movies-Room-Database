@@ -1,110 +1,161 @@
 package com.artemisSoftware.movieroomdb;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MovieSaveDialogFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MovieSaveDialogFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MovieSaveDialogFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class MovieSaveDialogFragment extends DialogFragment {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Context context;
+    private String movieTitleExtra;
+    private String movieDirectorFullNameExtra;
 
-    private OnFragmentInteractionListener mListener;
+    private static final String EXTRA_MOVIE_TITLE = "movie_title";
+    private static final String EXTRA_MOVIE_DIRECTOR_FULL_NAME = "movie_director_full_name";
+    public static final String TAG_DIALOG_MOVIE_SAVE = "dialog_movie_save";
 
-    public MovieSaveDialogFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MovieSaveDialogFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MovieSaveDialogFragment newInstance(String param1, String param2) {
+    public static MovieSaveDialogFragment newInstance(final String movieTitle, final String movieDirectorFullName) {
         MovieSaveDialogFragment fragment = new MovieSaveDialogFragment();
+
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(EXTRA_MOVIE_TITLE, movieTitle);
+        args.putString(EXTRA_MOVIE_DIRECTOR_FULL_NAME, movieDirectorFullName);
         fragment.setArguments(args);
+
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.dialog_movie, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+        this.context = context;
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle args = getArguments();
+        movieTitleExtra = args.getString(EXTRA_MOVIE_TITLE);
+        movieDirectorFullNameExtra = args.getString(EXTRA_MOVIE_DIRECTOR_FULL_NAME);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_movie, null);
+
+        final EditText movieEditText = view.findViewById(R.id.etMovieTitle);
+        final EditText movieDirectorEditText = view.findViewById(R.id.etMovieDirectorFullName);
+
+        if (movieTitleExtra != null) {
+            movieEditText.setText(movieTitleExtra);
+            movieEditText.setSelection(movieTitleExtra.length());
+        }
+
+        if (movieDirectorFullNameExtra != null) {
+            movieDirectorEditText.setText(movieDirectorFullNameExtra);
+            movieDirectorEditText.setSelection(movieDirectorFullNameExtra.length());
+        }
+
+        alertDialogBuilder.setView(view)
+                .setTitle(getString(R.string.dialog_movie_title))
+                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveMovie(movieEditText.getText().toString(), movieDirectorEditText.getText().toString());
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        return alertDialogBuilder.create();
+    }
+
+
+    private void saveMovie(String movieTitle, String movieDirectorFullName) {
+
+        if (TextUtils.isEmpty(movieTitle) || TextUtils.isEmpty(movieDirectorFullName)) {
+            return;
+        }
+
+        /*
+        DirectorDao directorDao = MoviesDatabase.getDatabase(context).directorDao();
+        MovieDao movieDao = MoviesDatabase.getDatabase(context).movieDao();
+
+        int directorId = -1;
+        if (movieDirectorFullNameExtra != null) {
+            // clicked on item row -> update
+            Director directorToUpdate = directorDao.findDirectorByName(movieDirectorFullNameExtra);
+            if (directorToUpdate != null) {
+                directorId = directorToUpdate.id;
+
+                if (!directorToUpdate.fullName.equals(movieDirectorFullName)) {
+                    directorToUpdate.fullName = movieDirectorFullName;
+                    directorDao.update(directorToUpdate);
+                }
+            }
+        } else {
+            // we need director id for movie object; in case director is already in DB,
+            // insert() would return -1, so we manually check if it exists and get
+            // the id of already saved director
+            Director newDirector = directorDao.findDirectorByName(movieDirectorFullName);
+            if (newDirector == null) {
+                directorId = (int) directorDao.insert(new Director(movieDirectorFullName));
+            } else {
+                directorId = newDirector.id;
+            }
+        }
+
+        if (movieTitleExtra != null) {
+            // clicked on item row -> update
+            Movie movieToUpdate = movieDao.findMovieByTitle(movieTitleExtra);
+            if (movieToUpdate != null) {
+                if (!movieToUpdate.title.equals(movieTitle)) {
+                    movieToUpdate.title = movieTitle;
+                    if (directorId != -1) {
+                        movieToUpdate.directorId = directorId;
+                    }
+                    movieDao.update(movieToUpdate);
+                }
+            }
+        }
+        else {
+            // we can have many movies with same title but different director
+            Movie newMovie = movieDao.findMovieByTitle(movieTitle);
+            if (newMovie == null) {
+                movieDao.insert(new Movie(movieTitle, directorId));
+            } else {
+                if (newMovie.directorId != directorId) {
+                    newMovie.directorId = directorId;
+                    movieDao.update(newMovie);
+                }
+            }
+        }
+        */
+
+
     }
 }
