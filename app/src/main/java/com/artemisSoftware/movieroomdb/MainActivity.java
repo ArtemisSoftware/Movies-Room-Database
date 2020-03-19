@@ -99,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
         dialogFragment.show(getSupportFragmentManager(), tag);
     }
-/*
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.overflow, menu);
@@ -121,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-*/
+
+
     private void deleteCurrentListData() {
         if (MOVIES_SHOWN) {
             ((MoviesListFragment) shownFragment).removeData();
