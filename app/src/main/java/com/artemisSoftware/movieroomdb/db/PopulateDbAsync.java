@@ -22,6 +22,10 @@ public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
         movieDao.deleteAll();
         directorDao.deleteAll();
         */
+
+        Director director = new Director("Quentin Tarantino");
+
+
         Director directorOne = new Director("Adam McKay");
         Director directorTwo = new Director("Denis Villeneuve");
         Director directorThree = new Director("Morten Tyldum");

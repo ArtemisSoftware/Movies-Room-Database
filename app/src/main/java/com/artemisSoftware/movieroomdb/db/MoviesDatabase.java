@@ -4,22 +4,20 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.artemisSoftware.movieroomdb.util.DataBase;
 
-//--@Database(entities = {Director.class, Movie.class}, version = 1)
+@Database(entities = {Director.class/*, Movie.class*/}, version = DataBase.VERSION)
 public abstract class MoviesDatabase extends RoomDatabase {
-
 
 
     private static final String TAG = "MoviesDatabase";
 
-
     private static MoviesDatabase INSTANCE;
-
 
 
     public static MoviesDatabase getDatabase(final Context context) {
