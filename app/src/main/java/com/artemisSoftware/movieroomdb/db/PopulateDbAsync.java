@@ -4,27 +4,32 @@ import android.os.AsyncTask;
 
 public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
-    /*
-    private final MovieDao movieDao;
+
+    //private final MovieDao movieDao;
     private final DirectorDao directorDao;
-    */
+
 
     public PopulateDbAsync(MoviesDatabase instance) {
-        /*
-        movieDao = instance.movieDao();
+
+        //movieDao = instance.movieDao();
         directorDao = instance.directorDao();
-        */
+
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         /*
         movieDao.deleteAll();
-        directorDao.deleteAll();
         */
 
-        Director director = new Director("Quentin Tarantino");
+        directorDao.deleteAll();
 
+
+        Director director = new Director("Quentin Tarantino");
+        directorDao.insert(director);
+
+        director = new Director("Ridley Scott");
+        long result = directorDao.insert(director);
 
         Director directorOne = new Director("Adam McKay");
         Director directorTwo = new Director("Denis Villeneuve");

@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,12 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.artemisSoftware.movieroomdb.R;
+import com.artemisSoftware.movieroomdb.db.Director;
+
+import java.util.List;
 
 
 public class DirectorsListFragment extends Fragment {
 
     private DirectorsListAdapter directorsListAdapter;
-    //--private DirectorsViewModel directorsViewModel;
+    private DirectorsViewModel directorsViewModel;
     private Context context;
 
     public static DirectorsListFragment newInstance() {
@@ -55,7 +60,7 @@ public class DirectorsListFragment extends Fragment {
     }
 
     private void initData() {
-        /*
+
         directorsViewModel = ViewModelProviders.of(this).get(DirectorsViewModel.class);
         directorsViewModel.getDirectorList().observe(this, new Observer<List<Director>>() {
             @Override
@@ -63,15 +68,13 @@ public class DirectorsListFragment extends Fragment {
                 directorsListAdapter.setDirectorList(directors);
             }
         });
-        */
+
     }
 
     public void removeData() {
-        /*
+
         if (directorsViewModel != null) {
             directorsViewModel.deleteAll();
         }
-
-         */
     }
 }
