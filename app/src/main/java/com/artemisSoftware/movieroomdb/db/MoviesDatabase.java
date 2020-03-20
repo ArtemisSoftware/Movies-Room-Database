@@ -72,6 +72,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
 
             database.execSQL(query);
 
+            Log.d(TAG, "MIGRATION_1_2");
         }
     };
 
