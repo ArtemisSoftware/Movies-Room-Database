@@ -155,7 +155,20 @@ public class MovieSaveDialogFragment extends DialogFragment {
                     if (directorId != -1) {
                         movieToUpdate.directorId = directorId;
                     }
+
+                    if (movieYear.equals("") == false) {
+                        movieToUpdate.year = Integer.parseInt(movieYear);
+                    }
+
+
                     movieDao.update(movieToUpdate);
+                }
+
+                if (movieYear.equals(movieToUpdate.year + "") == false) {
+                    if (movieYear.equals("") == false) {
+                        movieToUpdate.year = Integer.parseInt(movieYear);
+                        movieDao.update(movieToUpdate);
+                    }
                 }
             }
         }
