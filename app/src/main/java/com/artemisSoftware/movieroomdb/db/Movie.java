@@ -3,6 +3,7 @@ package com.artemisSoftware.movieroomdb.db;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
@@ -25,8 +26,20 @@ public class Movie {
     @ColumnInfo(name = "directorId")
     public int directorId;
 
+    @ColumnInfo(name = "year")
+    public int year;
+
+
     public Movie(@NonNull String title, int directorId) {
         this.title = title;
         this.directorId = directorId;
     }
+
+    @Ignore
+    public Movie(@NonNull String title, int directorId, int year) {
+        this.title = title;
+        this.directorId = directorId;
+        this.year = year;
+    }
+
 }

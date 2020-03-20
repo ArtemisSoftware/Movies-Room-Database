@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         String tag;
 
         if (MOVIES_SHOWN) {
-            dialogFragment = MovieSaveDialogFragment.newInstance(null, null);
+            dialogFragment = MovieSaveDialogFragment.newInstance(null, null, null);
             tag = MovieSaveDialogFragment.TAG_DIALOG_MOVIE_SAVE;
         }
         else {

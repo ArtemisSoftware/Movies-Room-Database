@@ -32,7 +32,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             MoviesDatabase.class, DataBase.NAME)
                             .allowMainThreadQueries() // SHOULD NOT BE USED IN PRODUCTION !!!
-                            .addMigrations(MIGRATION_1_2)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                             .addCallback(new RoomDatabase.Callback() {
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -76,6 +76,19 @@ public abstract class MoviesDatabase extends RoomDatabase {
         }
     };
 
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+
+            String query = "ALTER TABLE 'movie' ADD COLUMN 'year' INTEGER NOT NULL DEFAULT 0";
+
+            database.execSQL(query);
+
+            Log.d(TAG, "MIGRATION_2_3");
+        }
+    };
 
 
     public void clearDb() {

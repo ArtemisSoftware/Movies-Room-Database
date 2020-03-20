@@ -26,18 +26,21 @@ public class MovieSaveDialogFragment extends DialogFragment {
     private Context context;
     private String movieTitleExtra;
     private String movieDirectorFullNameExtra;
+    private String movieYearExtra;
 
     private static final String EXTRA_MOVIE_TITLE = "movie_title";
+    private static final String EXTRA_MOVIE_YEAR = "movie_year";
     private static final String EXTRA_MOVIE_DIRECTOR_FULL_NAME = "movie_director_full_name";
     public static final String TAG_DIALOG_MOVIE_SAVE = "dialog_movie_save";
 
 
-    public static MovieSaveDialogFragment newInstance(final String movieTitle, final String movieDirectorFullName) {
+    public static MovieSaveDialogFragment newInstance(final String movieTitle, final String movieDirectorFullName, final String movieYear) {
         MovieSaveDialogFragment fragment = new MovieSaveDialogFragment();
 
         Bundle args = new Bundle();
         args.putString(EXTRA_MOVIE_TITLE, movieTitle);
         args.putString(EXTRA_MOVIE_DIRECTOR_FULL_NAME, movieDirectorFullName);
+        args.putString(EXTRA_MOVIE_YEAR, movieYear);
         fragment.setArguments(args);
 
         return fragment;
@@ -56,6 +59,7 @@ public class MovieSaveDialogFragment extends DialogFragment {
         Bundle args = getArguments();
         movieTitleExtra = args.getString(EXTRA_MOVIE_TITLE);
         movieDirectorFullNameExtra = args.getString(EXTRA_MOVIE_DIRECTOR_FULL_NAME);
+        movieYearExtra = args.getString(EXTRA_MOVIE_YEAR);
     }
 
     @NonNull
@@ -68,6 +72,7 @@ public class MovieSaveDialogFragment extends DialogFragment {
 
         final EditText movieEditText = view.findViewById(R.id.etMovieTitle);
         final EditText movieDirectorEditText = view.findViewById(R.id.etMovieDirectorFullName);
+        final EditText movieYearEditText = view.findViewById(R.id.etMovieYear);
 
         if (movieTitleExtra != null) {
             movieEditText.setText(movieTitleExtra);
@@ -79,12 +84,17 @@ public class MovieSaveDialogFragment extends DialogFragment {
             movieDirectorEditText.setSelection(movieDirectorFullNameExtra.length());
         }
 
+        if (movieYearExtra != null) {
+            movieYearEditText.setText(movieYearExtra);
+            movieYearEditText.setSelection(movieYearExtra.length());
+        }
+
         alertDialogBuilder.setView(view)
                 .setTitle(getString(R.string.dialog_movie_title))
                 .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        saveMovie(movieEditText.getText().toString(), movieDirectorEditText.getText().toString());
+                        saveMovie(movieEditText.getText().toString(), movieDirectorEditText.getText().toString(), movieYearEditText.getText().toString());
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -98,7 +108,7 @@ public class MovieSaveDialogFragment extends DialogFragment {
     }
 
 
-    private void saveMovie(String movieTitle, String movieDirectorFullName) {
+    private void saveMovie(String movieTitle, String movieDirectorFullName, String movieYear) {
 
         if (TextUtils.isEmpty(movieTitle) || TextUtils.isEmpty(movieDirectorFullName)) {
             return;
@@ -153,7 +163,13 @@ public class MovieSaveDialogFragment extends DialogFragment {
             // we can have many movies with same title but different director
             Movie newMovie = movieDao.findMovieByTitle(movieTitle);
             if (newMovie == null) {
-                movieDao.insert(new Movie(movieTitle, directorId));
+
+                if(movieYear.equals("") == true) {
+                    movieDao.insert(new Movie(movieTitle, directorId));
+                }
+                else{
+                    movieDao.insert(new Movie(movieTitle, directorId, Integer.parseInt(movieYear)));
+                }
             } else {
                 if (newMovie.directorId != directorId) {
                     newMovie.directorId = directorId;
