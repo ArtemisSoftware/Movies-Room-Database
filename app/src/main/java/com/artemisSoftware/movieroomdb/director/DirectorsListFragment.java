@@ -62,6 +62,7 @@ public class DirectorsListFragment extends Fragment {
     private void initData() {
 
         directorsViewModel = ViewModelProviders.of(this).get(DirectorsViewModel.class);
+
         directorsViewModel.getDirectorList().observe(this, new Observer<List<Director>>() {
             @Override
             public void onChanged(@Nullable List<Director> directors) {

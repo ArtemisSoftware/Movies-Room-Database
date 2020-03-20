@@ -7,25 +7,27 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.artemisSoftware.movieroomdb.db.Movie;
+import com.artemisSoftware.movieroomdb.db.MovieDao;
+import com.artemisSoftware.movieroomdb.db.MoviesDatabase;
 
 import java.util.List;
 
 public class MoviesViewModel extends AndroidViewModel {
 
-    //private MovieDao movieDao;
+    private MovieDao movieDao;
     private LiveData<List<Movie>> moviesLiveData;
 
     public MoviesViewModel(@NonNull Application application) {
         super(application);
-        //movieDao = MoviesDatabase.getDatabase(application).movieDao();
-        //moviesLiveData = movieDao.getAllMovies();
+        movieDao = MoviesDatabase.getDatabase(application).movieDao();
+        moviesLiveData = movieDao.getAllMovies();
     }
 
     public LiveData<List<Movie>> getMoviesList() {
         return moviesLiveData;
     }
 
-    /*
+
     public void insert(Movie... movies) {
         movieDao.insert(movies);
     }
@@ -37,5 +39,5 @@ public class MoviesViewModel extends AndroidViewModel {
     public void deleteAll() {
         movieDao.deleteAll();
     }
-    */
+
 }

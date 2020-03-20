@@ -49,9 +49,9 @@ public abstract class MoviesDatabase extends RoomDatabase {
     }
 
 
-    /*
+
     public abstract MovieDao movieDao();
-    */
+
     public abstract DirectorDao directorDao();
 
 

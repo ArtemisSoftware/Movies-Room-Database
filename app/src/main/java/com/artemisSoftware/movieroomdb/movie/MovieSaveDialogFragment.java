@@ -14,6 +14,11 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.artemisSoftware.movieroomdb.R;
+import com.artemisSoftware.movieroomdb.db.Director;
+import com.artemisSoftware.movieroomdb.db.DirectorDao;
+import com.artemisSoftware.movieroomdb.db.Movie;
+import com.artemisSoftware.movieroomdb.db.MovieDao;
+import com.artemisSoftware.movieroomdb.db.MoviesDatabase;
 
 
 public class MovieSaveDialogFragment extends DialogFragment {
@@ -99,14 +104,17 @@ public class MovieSaveDialogFragment extends DialogFragment {
             return;
         }
 
-        /*
+
         DirectorDao directorDao = MoviesDatabase.getDatabase(context).directorDao();
         MovieDao movieDao = MoviesDatabase.getDatabase(context).movieDao();
 
         int directorId = -1;
+
         if (movieDirectorFullNameExtra != null) {
+
             // clicked on item row -> update
             Director directorToUpdate = directorDao.findDirectorByName(movieDirectorFullNameExtra);
+
             if (directorToUpdate != null) {
                 directorId = directorToUpdate.id;
 
@@ -115,7 +123,8 @@ public class MovieSaveDialogFragment extends DialogFragment {
                     directorDao.update(directorToUpdate);
                 }
             }
-        } else {
+        }
+        else {
             // we need director id for movie object; in case director is already in DB,
             // insert() would return -1, so we manually check if it exists and get
             // the id of already saved director
@@ -152,8 +161,5 @@ public class MovieSaveDialogFragment extends DialogFragment {
                 }
             }
         }
-        */
-
-
     }
 }
