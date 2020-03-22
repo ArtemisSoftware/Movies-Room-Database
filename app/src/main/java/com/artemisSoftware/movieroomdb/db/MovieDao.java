@@ -24,6 +24,6 @@ public interface MovieDao {
     @Query("DELETE FROM movie")
     void deleteAll();
 
-    @Query("SELECT * FROM movie ORDER BY title ASC")
-    LiveData<List<Movie>> getAllMovies();
+    @Query("SELECT title, full_name as directorName, year FROM movie as mov LEFT JOIN (SELECT full_name, did FROM director) as dir ON mov.directorId = dir.did ORDER BY title ASC\n")
+    LiveData<List<Film>> getAllMovies();
 }

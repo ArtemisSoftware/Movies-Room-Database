@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.artemisSoftware.movieroomdb.R;
+import com.artemisSoftware.movieroomdb.db.Film;
 import com.artemisSoftware.movieroomdb.db.Movie;
 
 import java.util.List;
@@ -68,9 +69,9 @@ public class MoviesListFragment extends Fragment {
 
         moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
 
-        moviesViewModel.getMoviesList().observe(this, new Observer<List<Movie>>() {
+        moviesViewModel.getMoviesList().observe(this, new Observer<List<Film>>() {
             @Override
-            public void onChanged(@Nullable List<Movie> movies) {
+            public void onChanged(@Nullable List<Film> movies) {
                 moviesListAdapter.setMovieList(movies);
             }
         });

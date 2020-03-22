@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.artemisSoftware.movieroomdb.db.Film;
 import com.artemisSoftware.movieroomdb.db.Movie;
 import com.artemisSoftware.movieroomdb.db.MovieDao;
 import com.artemisSoftware.movieroomdb.db.MoviesDatabase;
@@ -15,7 +16,7 @@ import java.util.List;
 public class MoviesViewModel extends AndroidViewModel {
 
     private MovieDao movieDao;
-    private LiveData<List<Movie>> moviesLiveData;
+    private LiveData<List<Film>> moviesLiveData;
 
     public MoviesViewModel(@NonNull Application application) {
         super(application);
@@ -23,7 +24,7 @@ public class MoviesViewModel extends AndroidViewModel {
         moviesLiveData = movieDao.getAllMovies();
     }
 
-    public LiveData<List<Movie>> getMoviesList() {
+    public LiveData<List<Film>> getMoviesList() {
         return moviesLiveData;
     }
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.artemisSoftware.movieroomdb.R;
 import com.artemisSoftware.movieroomdb.db.Director;
+import com.artemisSoftware.movieroomdb.db.Film;
 import com.artemisSoftware.movieroomdb.db.Movie;
 import com.artemisSoftware.movieroomdb.db.MoviesDatabase;
 
@@ -20,7 +21,7 @@ import java.util.List;
 public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.MoviesViewHolder> {
 
     private LayoutInflater layoutInflater;
-    private List<Movie> movieList;
+    private List<Film> movieList;
     private Context context;
 
     public MoviesListAdapter(Context context) {
@@ -28,7 +29,7 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
         this.context = context;
     }
 
-    public void setMovieList(List<Movie> movieList) {
+    public void setMovieList(List<Film> movieList) {
         this.movieList = movieList;
         notifyDataSetChanged();
     }
@@ -48,18 +49,18 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
         }
 
 
-        final Movie movie = movieList.get(position);
-        if (movie != null) {
-            holder.titleText.setText(movie.title);
+        final Film film = movieList.get(position);
+        if (film != null) {
+            holder.titleText.setText(film.getTitle());
 
 
-            final Director director = MoviesDatabase.getDatabase(context).directorDao().findDirectorById(movie.directorId);
+            //final Director director = MoviesDatabase.getDatabase(context).directorDao().findDirectorById(movie.directorId);
 
             final String directorFullName;
 
-            if (director != null) {
-                holder.directorText.setText(director.fullName);
-                directorFullName = director.fullName;
+            if (film.getDirectorName() != null) {
+                holder.directorText.setText(film.getDirectorName());
+                directorFullName = film.getDirectorName();
             }
             else {
                 directorFullName = "";
@@ -71,11 +72,11 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
 
                     String year = "";
 
-                    if(movie.year != 0){
-                        year = movie.year + "";
+                    if(film.getYear() != 0){
+                        year = film.getYear() + "";
                     }
 
-                    DialogFragment dialogFragment = MovieSaveDialogFragment.newInstance(movie.title, directorFullName, year);
+                    DialogFragment dialogFragment = MovieSaveDialogFragment.newInstance(film.getTitle(), directorFullName, year);
                     dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), MovieSaveDialogFragment.TAG_DIALOG_MOVIE_SAVE);
                 }
             });
