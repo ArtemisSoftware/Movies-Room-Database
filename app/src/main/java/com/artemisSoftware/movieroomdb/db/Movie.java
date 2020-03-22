@@ -3,16 +3,18 @@ package com.artemisSoftware.movieroomdb.db;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "movie"/*,
+@Entity(tableName = "movie",
         foreignKeys = @ForeignKey(entity = Director.class,
                 parentColumns = "did",
                 childColumns = "directorId",
                 onDelete = ForeignKey.CASCADE),
-        indices = {@Index("title"), @Index("directorId")}*/)
+        indices = {@Index("title"), @Index("directorId")})
 public class Movie {
 
     @PrimaryKey(autoGenerate = true)

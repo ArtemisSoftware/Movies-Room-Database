@@ -32,7 +32,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             MoviesDatabase.class, DataBase.NAME)
                             .allowMainThreadQueries() // SHOULD NOT BE USED IN PRODUCTION !!!
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                             .addCallback(new RoomDatabase.Callback() {
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -90,6 +90,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
         }
     };
 
+
     static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
@@ -101,6 +102,56 @@ public abstract class MoviesDatabase extends RoomDatabase {
             Log.d(TAG, "MIGRATION_3_4");
         }
     };
+
+
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+            database.beginTransaction();
+
+            try {
+
+                String query = "ALTER TABLE movie RENAME TO tmp_movie";
+                database.execSQL(query);
+
+                query = "CREATE TABLE IF NOT EXISTS movie (" +
+                        "mid INTEGER NOT NULL, " +
+                        "title TEXT NOT NULL, " +
+                        "directorId INTEGER NOT NULL, " +
+                        "year INTEGER NOT NULL, " +
+                        "PRIMARY KEY(mid), " +
+                        "FOREIGN KEY (directorId) REFERENCES director (did) ON DELETE CASCADE " +
+                        ")";
+
+                database.execSQL(query);
+
+
+                query = "CREATE INDEX index_movie_title ON  movie(title)";
+                database.execSQL(query);
+
+                query = "CREATE INDEX index_movie_directorId ON  movie(directorId)";
+                database.execSQL(query);
+
+
+
+                query = "INSERT INTO movie(title, directorId, year) " +
+                        "SELECT title, directorId, year FROM tmp_movie ORDER BY mid";
+
+                database.execSQL(query);
+
+                query = "DROP TABLE tmp_movie";
+                database.execSQL(query);
+
+                database.setTransactionSuccessful();
+                Log.d(TAG, "MIGRATION_4_5");
+            }
+            finally {
+                database.endTransaction();
+            }
+        }
+    };
+
 
 
 
