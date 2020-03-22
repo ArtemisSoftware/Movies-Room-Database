@@ -13,7 +13,6 @@
         android:id="@+id/recyclerview_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_blue_dark"
         tools:listitem="@layout/item_list_movie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
