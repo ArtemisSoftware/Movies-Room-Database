@@ -14,4 +14,11 @@
         android:orderInCategory="2"
         android:title="@string/menu_item_re_create_database"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_author"
+        android:orderInCategory="3"
+        android:title="@string/menu_author"
+        app:showAsAction="never" />
+
 </menu>

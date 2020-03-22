@@ -7,10 +7,17 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.artemisSoftware.movieroomdb.db.MoviesDatabase;
 import com.artemisSoftware.movieroomdb.director.DirectorSaveDialogFragment;
@@ -120,9 +127,14 @@ public class MainActivity extends AppCompatActivity {
             reCreateDatabase();
             return true;
         }
+        else if (id == R.id.action_author) {
+            author();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
     private void deleteCurrentListData() {
@@ -136,6 +148,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void reCreateDatabase() {
         MoviesDatabase.getDatabase(this).clearDb();
+    }
+
+
+    private void author() {
+
+        Dialog builder = new Dialog(this);
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                //nothing;
+            }
+        });
+
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.artemis_software_logo);
+        builder.addContentView(imageView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.show();
     }
 
 }
