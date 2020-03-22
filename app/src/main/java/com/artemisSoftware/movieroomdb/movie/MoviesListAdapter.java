@@ -59,22 +59,28 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
             final String directorFullName;
 
             if (film.getDirectorName() != null) {
-                holder.directorText.setText(film.getDirectorName());
                 directorFullName = film.getDirectorName();
             }
             else {
                 directorFullName = "";
             }
 
+            final String year;
+
+
+            if(film.getYear() != 0){
+                year = film.getYear() + "";
+            }
+            else{
+                year = "";
+            }
+
+            holder.directorText.setText(directorFullName);
+            holder.yearText.setText(year);
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    String year = "";
-
-                    if(film.getYear() != 0){
-                        year = film.getYear() + "";
-                    }
 
                     DialogFragment dialogFragment = MovieSaveDialogFragment.newInstance(film.getTitle(), directorFullName, year);
                     dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), MovieSaveDialogFragment.TAG_DIALOG_MOVIE_SAVE);
@@ -98,7 +104,7 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
     static class MoviesViewHolder extends RecyclerView.ViewHolder {
 
         private TextView titleText;
-        private TextView directorText;
+        private TextView directorText, yearText;
 
         public MoviesViewHolder(View itemView) {
             super(itemView);
@@ -106,7 +112,7 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
 
             titleText = itemView.findViewById(R.id.tvMovieTitle);
             directorText = itemView.findViewById(R.id.tvMovieDirectorFullName);
-
+            yearText = itemView.findViewById(R.id.tvMovieYear);
         }
     }
 }

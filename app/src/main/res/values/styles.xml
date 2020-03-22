@@ -44,4 +44,12 @@
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
+    <style name="movie_year">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">14dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
 </resources>
