@@ -38,9 +38,16 @@ public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
         final int dIdTwo = (int) directorDao.insert(directorTwo);
         Movie movieTwo = new Movie("Arrival", dIdTwo);
         Movie movieThree = new Movie("Blade Runner 2049", dIdTwo);
-        Movie movieFour = new Movie("Passengers", (int) directorDao.insert(directorThree));
+        Movie movieFour = new Movie("Imitation", (int) directorDao.insert(directorThree));
 
-        movieDao.insert(movieOne, movieTwo, movieThree, movieFour);
+        movieDao.insert(movieFour);
+        movieDao.insert(movieOne, movieTwo, movieThree);
+
+        Movie movieUpdate = movieDao.findMovieByTitle("Imitation");
+        movieUpdate.title = "Imitation Game";
+
+        movieDao.update(movieUpdate);
+
 
         return null;
     }

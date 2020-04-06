@@ -10,26 +10,18 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface DirectorDao {
+abstract public class DirectorDao implements BaseDao<Director>{
 
     @Query("SELECT * FROM director WHERE did = :id LIMIT 1")
-    Director findDirectorById(int id);
+    abstract public Director findDirectorById(int id);
 
     @Query("SELECT * FROM director WHERE full_name = :fullName LIMIT 1")
-    Director findDirectorByName(String fullName);
+    abstract public Director findDirectorByName(String fullName);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    long insert(Director director);
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Director... directors);
-
-    @Update(onConflict = OnConflictStrategy.IGNORE)
-    void update(Director director);
 
     @Query("DELETE FROM director")
-    void deleteAll();
+    abstract public void deleteAll();
 
     @Query("SELECT * FROM director ORDER BY full_name ASC")
-    LiveData<List<Director>> getAllDirectors();
+    abstract public LiveData<List<Director>> getAllDirectors();
 }

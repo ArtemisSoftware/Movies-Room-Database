@@ -10,20 +10,15 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface MovieDao {
+abstract public class MovieDao implements BaseDao<Movie> {
 
     @Query("SELECT * FROM movie WHERE title = :title LIMIT 1")
-    Movie findMovieByTitle(String title);
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Movie... directors);
-
-    @Update(onConflict = OnConflictStrategy.IGNORE)
-    void update(Movie director);
+    abstract public Movie findMovieByTitle(String title);
 
     @Query("DELETE FROM movie")
-    void deleteAll();
+    abstract public void deleteAll();
 
     @Query("SELECT title, full_name as directorName, year FROM movie as mov LEFT JOIN (SELECT full_name, did FROM director) as dir ON mov.directorId = dir.did ORDER BY title ASC\n")
-    LiveData<List<Film>> getAllMovies();
+    abstract public LiveData<List<Film>> getAllMovies();
+
 }
