@@ -7,13 +7,14 @@ public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
     private final MovieDao movieDao;
     private final DirectorDao directorDao;
+    MoviesDatabase instance;
 
 
     public PopulateDbAsync(MoviesDatabase instance) {
 
         movieDao = instance.movieDao();
         directorDao = instance.directorDao();
-
+        this.instance = instance;
     }
 
     @Override
@@ -48,6 +49,9 @@ public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         movieDao.update(movieUpdate);
 
+
+
+        this.instance.transactionDb();
 
         return null;
     }

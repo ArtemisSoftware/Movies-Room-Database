@@ -58,6 +58,39 @@ public abstract class MoviesDatabase extends RoomDatabase {
 
 
 
+    public void transactionDb() {
+
+        INSTANCE.runInTransaction(new Runnable(){
+            @Override
+            public void run(){
+
+                Director director = new Director("The Best Director");
+                int id = (int) directorDao().insert(director);
+
+                Movie movie = new Movie("The Best Movie", id, 2099);
+                movieDao().insert(movie);
+
+            }
+        });
+    }
+
+    public void transactionDb(final String directorName, final String movieTitle, final int movieYear) {
+
+        INSTANCE.runInTransaction(new Runnable(){
+            @Override
+            public void run(){
+
+                Director director = new Director(directorName);
+                int id = (int) directorDao().insert(director);
+
+                Movie movie = new Movie(movieTitle, id, movieYear);
+                movieDao().insert(movie);
+
+            }
+        });
+    }
+
+
 
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
@@ -160,6 +193,5 @@ public abstract class MoviesDatabase extends RoomDatabase {
             new PopulateDbAsync(INSTANCE).execute();
         }
     }
-
 
 }
